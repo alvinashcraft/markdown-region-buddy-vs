@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidPackage">
+
+    <Menus>
+      <Menu guid="guidCmdSet" id="SubMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidCmdSet" id="EditorContextGroup"/>
+        <Strings>
+          <ButtonText>Markdown Region Buddy</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+      <!-- Group placed inside the editor context menu (holds our submenu) -->
+      <Group guid="guidCmdSet" id="EditorContextGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+      </Group>
+
+      <!-- Groups inside our submenu (separate command categories) -->
+      <Group guid="guidCmdSet" id="SubMenuCurrentGroup" priority="0x0100">
+        <Parent guid="guidCmdSet" id="SubMenu"/>
+      </Group>
+      <Group guid="guidCmdSet" id="SubMenuNamedGroup" priority="0x0200">
+        <Parent guid="guidCmdSet" id="SubMenu"/>
+      </Group>
+      <Group guid="guidCmdSet" id="SubMenuAllGroup" priority="0x0300">
+        <Parent guid="guidCmdSet" id="SubMenu"/>
+      </Group>
+      <Group guid="guidCmdSet" id="SubMenuSettingsGroup" priority="0x0400">
+        <Parent guid="guidCmdSet" id="SubMenu"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <!-- Current section commands -->
+      <Button guid="guidCmdSet" id="cmdToggleCurrentSection" priority="0x0100" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuCurrentGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Toggle Current Section</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.ToggleCurrentSection</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.ToggleCurrentSection</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCmdSet" id="cmdExpandCurrentSection" priority="0x0200" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuCurrentGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Expand Current Section</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.ExpandCurrentSection</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.ExpandCurrentSection</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCmdSet" id="cmdCollapseCurrentSection" priority="0x0300" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuCurrentGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Collapse Current Section</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.CollapseCurrentSection</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.CollapseCurrentSection</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <!-- Named section commands -->
+      <Button guid="guidCmdSet" id="cmdExpandNamedSection" priority="0x0100" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuNamedGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Expand Named Section</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.ExpandNamedSection</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.ExpandNamedSection</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCmdSet" id="cmdCollapseNamedSection" priority="0x0200" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuNamedGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Collapse Named Section</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.CollapseNamedSection</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.CollapseNamedSection</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <!-- All / Focus commands -->
+      <Button guid="guidCmdSet" id="cmdExpandAllRegions" priority="0x0100" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuAllGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Expand All Regions</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.ExpandAllRegions</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.ExpandAllRegions</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCmdSet" id="cmdCollapseAllRegions" priority="0x0200" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuAllGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Collapse All Regions</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.CollapseAllRegions</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.CollapseAllRegions</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCmdSet" id="cmdFocusSection" priority="0x0300" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuAllGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Focus on Section</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.FocusSection</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.FocusSection</LocCanonicalName>
+        </Strings>
+      </Button>
+
+      <!-- Settings commands -->
+      <Button guid="guidCmdSet" id="cmdToggleDecorations" priority="0x0100" type="Button">
+        <Parent guid="guidCmdSet" id="SubMenuSettingsGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Toggle Section Background Colors</ButtonText>
+          <CanonicalName>MarkdownRegionBuddy.ToggleDecorations</CanonicalName>
+          <LocCanonicalName>MarkdownRegionBuddy.ToggleDecorations</LocCanonicalName>
+        </Strings>
+      </Button>
+    </Buttons>
+
+  </Commands>
+
+  <KeyBindings>
+    <KeyBinding guid="guidCmdSet" id="cmdToggleCurrentSection"
+                key1="0xDB" mod1="Control Alt" editor="guidVSStd97"/>
+    <KeyBinding guid="guidCmdSet" id="cmdExpandCurrentSection"
+                key1="0xDD" mod1="Control Alt" editor="guidVSStd97"/>
+    <KeyBinding guid="guidCmdSet" id="cmdFocusSection"
+                key1="F" mod1="Control Alt" editor="guidVSStd97"/>
+  </KeyBindings>
+
+  <Symbols>
+    <GuidSymbol name="guidPackage" value="{8b2e1ea7-72df-455a-8d97-a2a7e28bbb00}" />
+
+    <GuidSymbol name="guidCmdSet" value="{d4c3b2a1-e5f6-4a7b-8c9d-0e1f2a3b4c5d}">
+      <!-- Commands -->
+      <IDSymbol name="cmdToggleCurrentSection"   value="0x0100"/>
+      <IDSymbol name="cmdExpandCurrentSection"   value="0x0101"/>
+      <IDSymbol name="cmdCollapseCurrentSection" value="0x0102"/>
+      <IDSymbol name="cmdExpandAllRegions"       value="0x0103"/>
+      <IDSymbol name="cmdCollapseAllRegions"     value="0x0104"/>
+      <IDSymbol name="cmdExpandNamedSection"     value="0x0105"/>
+      <IDSymbol name="cmdCollapseNamedSection"   value="0x0106"/>
+      <IDSymbol name="cmdFocusSection"           value="0x0107"/>
+      <IDSymbol name="cmdToggleDecorations"     value="0x0108"/>
+
+      <!-- Menus / Groups -->
+      <IDSymbol name="EditorContextGroup"    value="0x1000"/>
+      <IDSymbol name="SubMenu"               value="0x1001"/>
+      <IDSymbol name="SubMenuCurrentGroup"   value="0x1010"/>
+      <IDSymbol name="SubMenuNamedGroup"     value="0x1011"/>
+      <IDSymbol name="SubMenuAllGroup"       value="0x1012"/>
+      <IDSymbol name="SubMenuSettingsGroup"  value="0x1013"/>
+    </GuidSymbol>
+  </Symbols>
+
+</CommandTable>
