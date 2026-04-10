@@ -54,4 +54,4 @@ The test project links `Core\` source files directly (no project reference) sinc
 
 ## Reference Extension
 
-The VS Code source extension lives at `D:\source\code-repos\extensions\markdown-region-buddy`. Use its `src\` directory and `docs\ARCHITECTURE.md` as the authoritative reference for parsing behavior and feature design.
+The companion VS Code extension is at https://github.com/alvinashcraft/markdown-region-buddy. Use its `src/` directory and `docs/ARCHITECTURE.md` as the authoritative reference for parsing behavior and feature design.

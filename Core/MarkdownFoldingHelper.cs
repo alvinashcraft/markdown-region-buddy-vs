@@ -194,10 +194,10 @@ namespace vs_md_extension_buddy.Core
                 {
                     string tagName = htmlMatch.Groups[2].Value.ToLowerInvariant();
                     int startLine = i;
+                    string closeTag = $"</{tagName}";
 
                     // Self-closing or single-line
-                    var closeTagPattern = new Regex($"</{Regex.Escape(tagName)}\\s*>", RegexOptions.IgnoreCase);
-                    if (closeTagPattern.IsMatch(lines[i]) || Regex.IsMatch(lines[i], @"/>\s*$"))
+                    if (ContainsClosingTag(lines[i], closeTag) || Regex.IsMatch(lines[i], @"/>\s*$"))
                     {
                         i++;
                         continue;
@@ -206,7 +206,7 @@ namespace vs_md_extension_buddy.Core
                     i++;
                     while (i < lines.Count)
                     {
-                        if (closeTagPattern.IsMatch(lines[i]))
+                        if (ContainsClosingTag(lines[i], closeTag))
                         {
                             blocks.Add(new LineRange { StartLine = startLine, EndLine = i });
                             i++;
@@ -450,6 +450,16 @@ namespace vs_md_extension_buddy.Core
             }
 
             return ranges;
+        }
+        private static bool ContainsClosingTag(string line, string closeTag)
+        {
+            int idx = line.IndexOf(closeTag, System.StringComparison.OrdinalIgnoreCase);
+            if (idx < 0) return false;
+            int afterTag = idx + closeTag.Length;
+            // Skip optional whitespace, then expect '>'
+            while (afterTag < line.Length && char.IsWhiteSpace(line[afterTag]))
+                afterTag++;
+            return afterTag < line.Length && line[afterTag] == '>';
         }
     }
 }

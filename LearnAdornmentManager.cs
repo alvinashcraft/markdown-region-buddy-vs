@@ -91,6 +91,7 @@ namespace vs_md_extension_buddy
         private void UpdateAdornments()
         {
             if (_disposed) return;
+            if (_view.TextViewLines == null) return;
 
             _layer.RemoveAllAdornments();
 

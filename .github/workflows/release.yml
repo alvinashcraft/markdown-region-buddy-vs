@@ -1,0 +1,35 @@
+name: Publish to VS Marketplace
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build (Release)
+        run: msbuild vs-md-extension-buddy.slnx /restore /p:Configuration=Release /p:DeployExtension=false
+
+      - name: Run tests
+        run: dotnet test vs-md-extension-buddy.Tests --configuration Release --verbosity normal --nologo
+
+      - name: Publish to Marketplace
+        uses: cezarypiatek/VsixPublisherAction@1.1
+        with:
+          extension-file: bin\Release\vs-markdown-region-buddy.vsix
+          publish-manifest-file: vs-publish.json
+          personal-access-code: ${{ secrets.VS_MARKETPLACE_PAT }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: bin\Release\vs-markdown-region-buddy.vsix
+          generate_release_notes: true

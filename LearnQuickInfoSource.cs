@@ -58,7 +58,8 @@ namespace vs_md_extension_buddy
             int lineNumber = triggerPoint.Value.GetContainingLine().LineNumber;
 
             var lines = GetLines(snapshot);
-            var section = LearnSectionParser.FindSectionAtLine(lines, lineNumber);
+            var sections = LearnSectionParser.ParseSections(lines);
+            var section = LearnSectionParser.FindSectionAtLine(sections, lineNumber);
 
             // Only show hover on the start line
             if (section == null || lineNumber != section.StartLine)

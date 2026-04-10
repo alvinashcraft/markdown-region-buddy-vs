@@ -68,7 +68,14 @@ namespace vs_md_extension_buddy.Core
         /// </summary>
         public static LearnSection FindSectionAtLine(IReadOnlyList<string> lines, int lineNumber)
         {
-            var sections = ParseSections(lines);
+            return FindSectionAtLine(ParseSections(lines), lineNumber);
+        }
+
+        /// <summary>
+        /// Find the innermost section at a specific line from pre-parsed sections.
+        /// </summary>
+        public static LearnSection FindSectionAtLine(List<LearnSection> sections, int lineNumber)
+        {
             var containing = sections
                 .Where(s => lineNumber >= s.StartLine && lineNumber <= s.EndLine)
                 .ToList();
@@ -76,7 +83,6 @@ namespace vs_md_extension_buddy.Core
             if (containing.Count == 0)
                 return null;
 
-            // Return the most specific (smallest range = innermost) section
             return containing.Aggregate((innermost, current) =>
             {
                 int innermostSize = innermost.EndLine - innermost.StartLine;
@@ -90,7 +96,15 @@ namespace vs_md_extension_buddy.Core
         /// </summary>
         public static List<LearnSection> FindSectionsByName(IReadOnlyList<string> lines, SectionType type, string name)
         {
-            return ParseSections(lines)
+            return FindSectionsByName(ParseSections(lines), type, name);
+        }
+
+        /// <summary>
+        /// Find all sections with a specific type and name from pre-parsed sections.
+        /// </summary>
+        public static List<LearnSection> FindSectionsByName(List<LearnSection> sections, SectionType type, string name)
+        {
+            return sections
                 .Where(s => s.Type == type && s.Name == name)
                 .ToList();
         }
@@ -100,7 +114,14 @@ namespace vs_md_extension_buddy.Core
         /// </summary>
         public static List<(SectionType Type, string Name, string Label)> GetUniqueSections(IReadOnlyList<string> lines)
         {
-            var sections = ParseSections(lines);
+            return GetUniqueSections(ParseSections(lines));
+        }
+
+        /// <summary>
+        /// Get all unique section type/name combinations from pre-parsed sections.
+        /// </summary>
+        public static List<(SectionType Type, string Name, string Label)> GetUniqueSections(List<LearnSection> sections)
+        {
             var uniqueMap = new Dictionary<string, (SectionType Type, string Name, string Label)>();
 
             foreach (var section in sections)
