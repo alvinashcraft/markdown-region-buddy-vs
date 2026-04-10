@@ -35,7 +35,7 @@ namespace vs_md_extension_buddy
     {
         private readonly ITextBuffer _buffer;
         private Timer _debounceTimer;
-        private bool _disposed;
+        private volatile bool _disposed;
 
         private const int DebounceMs = 300;
         private const int MaxHintLines = 20;
@@ -76,8 +76,9 @@ namespace vs_md_extension_buddy
         private void OnBufferChanged(object sender, TextContentChangedEventArgs e)
         {
             if (_disposed) return;
-            _debounceTimer?.Dispose();
-            _debounceTimer = new Timer(_ => Parse(_buffer.CurrentSnapshot), null, DebounceMs, Timeout.Infinite);
+            var newTimer = new Timer(_ => Parse(_buffer.CurrentSnapshot), null, DebounceMs, Timeout.Infinite);
+            var oldTimer = Interlocked.Exchange(ref _debounceTimer, newTimer);
+            oldTimer?.Dispose();
         }
 
         private void Parse(ITextSnapshot snapshot)
@@ -285,7 +286,8 @@ namespace vs_md_extension_buddy
             if (!_disposed)
             {
                 _disposed = true;
-                _debounceTimer?.Dispose();
+                var timer = Interlocked.Exchange(ref _debounceTimer, null);
+                timer?.Dispose();
                 _buffer.Changed -= OnBufferChanged;
             }
         }

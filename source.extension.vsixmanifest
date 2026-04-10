@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="MarkdownRegionBuddy.07811a35-7c4b-4bd1-a7b1-09dca0bb1618" Version="1.0" Language="en-US" Publisher="Alvin Ashcraft" />
+    <Identity Id="MarkdownRegionBuddy.07811a35-7c4b-4bd1-a7b1-09dca0bb1618" Version="1.0.0" Language="en-US" Publisher="alvinashcraft" />
     <DisplayName>Markdown Region Buddy</DisplayName>
     <Description xml:space="preserve">Manage markdown regions — monikers, zone pivots, and tabs — with outlining, hover previews, focus commands, and optional background decorations. Built for Microsoft Learn content authors.</Description>
-    <MoreInfo>https://github.com/alvinashcraft/markdown-region-buddy</MoreInfo>
+    <MoreInfo>https://github.com/alvinashcraft/markdown-region-buddy-vs</MoreInfo>
     <License>LICENSE</License>
     <ReleaseNotes>Initial release — full feature parity with the VS Code extension.</ReleaseNotes>
     <Icon>icon.png</Icon>
@@ -12,8 +12,23 @@
     <Tags>markdown, writing, microsoftlearn, regions, docs, documentation, learn, folding, outlining</Tags>
   </Metadata>
   <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, )">
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.14, )">
       <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.14, )">
+      <ProductArchitecture>arm64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[17.14, )">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[17.14, )">
+      <ProductArchitecture>arm64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[17.14, )">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[17.14, )">
+      <ProductArchitecture>arm64</ProductArchitecture>
     </InstallationTarget>
   </Installation>
   <Dependencies>

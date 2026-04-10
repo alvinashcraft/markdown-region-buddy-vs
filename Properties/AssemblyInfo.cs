@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Markdown Region Buddy")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("Copyright (c) 2025-2026 Alvin Ashcraft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

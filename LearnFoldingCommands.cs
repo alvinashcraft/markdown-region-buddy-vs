@@ -167,12 +167,11 @@ namespace vs_md_extension_buddy
         private void ExecuteExpandNamed(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            var (view, manager, section) = GetCurrentSection();
+            var (view, manager, sections, section) = GetCurrentSectionWithParsed();
             if (section == null) return;
 
             var snapshot = view.TextSnapshot;
-            var lines = GetLines(snapshot);
-            var matching = LearnSectionParser.FindSectionsByName(lines, section.Type, section.Name);
+            var matching = LearnSectionParser.FindSectionsByName(sections, section.Type, section.Name);
 
             int count = 0;
             foreach (var s in matching)
@@ -191,12 +190,11 @@ namespace vs_md_extension_buddy
         private void ExecuteCollapseNamed(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            var (view, manager, section) = GetCurrentSection();
+            var (view, manager, sections, section) = GetCurrentSectionWithParsed();
             if (section == null) return;
 
             var snapshot = view.TextSnapshot;
-            var lines = GetLines(snapshot);
-            var matching = LearnSectionParser.FindSectionsByName(lines, section.Type, section.Name);
+            var matching = LearnSectionParser.FindSectionsByName(sections, section.Type, section.Name);
 
             foreach (var s in matching)
             {
@@ -216,7 +214,8 @@ namespace vs_md_extension_buddy
 
             var snapshot = view.TextSnapshot;
             var lines = GetLines(snapshot);
-            var uniqueSections = LearnSectionParser.GetUniqueSections(lines);
+            var allSections = LearnSectionParser.ParseSections(lines);
+            var uniqueSections = LearnSectionParser.GetUniqueSections(allSections);
 
             if (uniqueSections.Count == 0)
             {
@@ -251,8 +250,6 @@ namespace vs_md_extension_buddy
                         selectedZoneNames.Add(zoneSection.Name);
                 }
             }
-
-            var allSections = LearnSectionParser.ParseSections(lines);
 
             // Collapse all sections of selected types, then expand matches
             foreach (var section in allSections)
@@ -344,7 +341,8 @@ namespace vs_md_extension_buddy
             var snapshot = view.TextSnapshot;
             int caretLine = view.Caret.Position.BufferPosition.GetContainingLine().LineNumber;
             var lines = GetLines(snapshot);
-            var section = LearnSectionParser.FindSectionAtLine(lines, caretLine);
+            var sections = LearnSectionParser.ParseSections(lines);
+            var section = LearnSectionParser.FindSectionAtLine(sections, caretLine);
 
             if (section == null)
             {
@@ -353,6 +351,28 @@ namespace vs_md_extension_buddy
             }
 
             return (view, manager, section);
+        }
+
+        private (IWpfTextView view, IOutliningManager manager, List<LearnSection> sections, LearnSection section) GetCurrentSectionWithParsed()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var (view, manager) = GetViewAndManager();
+            if (view == null)
+                return (null, null, null, null);
+
+            var snapshot = view.TextSnapshot;
+            int caretLine = view.Caret.Position.BufferPosition.GetContainingLine().LineNumber;
+            var lines = GetLines(snapshot);
+            var sections = LearnSectionParser.ParseSections(lines);
+            var section = LearnSectionParser.FindSectionAtLine(sections, caretLine);
+
+            if (section == null)
+            {
+                ShowStatusMessage("No region found at cursor position.");
+                return (view, manager, sections, null);
+            }
+
+            return (view, manager, sections, section);
         }
 
         private static ICollapsible FindRegionForSection(

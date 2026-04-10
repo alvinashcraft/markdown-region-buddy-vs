@@ -68,7 +68,7 @@ namespace vs_md_extension_buddy
 
             _view.LayoutChanged += OnLayoutChanged;
             _view.Closed += OnViewClosed;
-            LearnOptionPage.SettingsChanged += OnSettingsChanged;
+            System.Windows.WeakEventManager<LearnOptionPage, EventArgs>.AddHandler(null, "SettingsChanged", OnSettingsChanged);
 
             UpdateAdornments();
         }
@@ -91,6 +91,7 @@ namespace vs_md_extension_buddy
         private void UpdateAdornments()
         {
             if (_disposed) return;
+            if (_view.TextViewLines == null) return;
 
             _layer.RemoveAllAdornments();
 
@@ -177,7 +178,7 @@ namespace vs_md_extension_buddy
                 _disposed = true;
                 _view.LayoutChanged -= OnLayoutChanged;
                 _view.Closed -= OnViewClosed;
-                LearnOptionPage.SettingsChanged -= OnSettingsChanged;
+                System.Windows.WeakEventManager<LearnOptionPage, EventArgs>.RemoveHandler(null, "SettingsChanged", OnSettingsChanged);
                 _layer.RemoveAllAdornments();
             }
         }
