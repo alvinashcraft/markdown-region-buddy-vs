@@ -9,7 +9,7 @@
     <ReleaseNotes>Initial release — full feature parity with the VS Code extension.</ReleaseNotes>
     <Icon>icon.png</Icon>
     <PreviewImage>icon.png</PreviewImage>
-    <Tags>markdown, writing, microsoftlearn, regions, docs, documentation, learn, folding, outlining</Tags>
+    <Tags>markdown;writing;microsoftlearn;regions;docs;documentation;learn;folding;outlining</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.14, )">
