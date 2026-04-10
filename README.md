@@ -1,5 +1,11 @@
 # Markdown Region Buddy for Visual Studio
 
+<img src="icon.png" width="128" alt="Markdown Region Buddy icon" align="right" />
+
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/alvinashcraft.MarkdownRegionBuddy)](https://marketplace.visualstudio.com/items?itemName=alvinashcraft.MarkdownRegionBuddy)
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/alvinashcraft.MarkdownRegionBuddy)](https://marketplace.visualstudio.com/items?itemName=alvinashcraft.MarkdownRegionBuddy)
+[![Build](https://github.com/alvinashcraft/markdown-region-buddy-vs/actions/workflows/build.yml/badge.svg)](https://github.com/alvinashcraft/markdown-region-buddy-vs/actions/workflows/build.yml)
+
 A Visual Studio 2022 extension that helps authors manage markdown regions — **monikers**, **zone pivots**, and **tabs** — with outlining (folding), hover previews, focus commands, and optional background decorations. Built for [Microsoft Learn](https://learn.microsoft.com/) content authors and anyone working with regional markdown syntax.
 
 This is the Visual Studio port of the [Markdown Region Buddy](https://marketplace.visualstudio.com/items?itemName=alvinashcraft.markdown-region-buddy) VS Code extension.
