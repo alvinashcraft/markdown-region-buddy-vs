@@ -15,14 +15,8 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v2
-
-      - name: Restore NuGet packages
-        run: nuget restore vs-md-extension-buddy.slnx
-
       - name: Build (Release)
-        run: msbuild vs-md-extension-buddy.slnx /p:Configuration=Release /p:DeployExtension=false
+        run: msbuild vs-md-extension-buddy.slnx /restore /p:Configuration=Release /p:DeployExtension=false
 
       - name: Run tests
         run: dotnet test vs-md-extension-buddy.Tests --configuration Release --verbosity normal --nologo
